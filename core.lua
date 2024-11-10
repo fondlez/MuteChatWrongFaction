@@ -1,9 +1,31 @@
-local function isChatWrongFaction(msg)
-  if msg and msg == ERR_CHAT_WRONG_FACTION then
-    return true
+local function getClient()
+  local display_version, build_number, build_date, ui_version = GetBuildInfo()
+  ui_version = ui_version or 11200
+  return ui_version, display_version, build_number, build_date
+end
+
+local ui_version = getClient()
+local is_tbc = false
+if ui_version >= 20000 and ui_version <= 20400 then
+  is_tbc = true
+end
+
+if is_tbc then
+  local function isChatWrongFaction(msg)
+    if msg and msg == ERR_CHAT_WRONG_FACTION then
+      return true
+    end
+    
+    return false
   end
-  
-  return false
+else
+  local function isChatWrongFaction(self, event, msg)
+    if msg and msg == ERR_CHAT_WRONG_FACTION then
+      return true
+    end
+    
+    return false
+  end
 end
 
 local frame = CreateFrame("Frame", "MuteChatWrongFactionFrame")
