@@ -10,21 +10,22 @@ if ui_version >= 20000 and ui_version <= 20400 then
   is_tbc = true
 end
 
+local function filterChat(msg)
+  if msg and msg == ERR_CHAT_WRONG_FACTION then
+    return true
+  end
+  
+  return false
+end
+
+local isChatWrongFaction
 if is_tbc then
-  local function isChatWrongFaction(msg)
-    if msg and msg == ERR_CHAT_WRONG_FACTION then
-      return true
-    end
-    
-    return false
+  isChatWrongFaction = function(msg)
+    return filterChat(msg)
   end
 else
-  local function isChatWrongFaction(self, event, msg)
-    if msg and msg == ERR_CHAT_WRONG_FACTION then
-      return true
-    end
-    
-    return false
+  isChatWrongFaction = function(self, event, msg)
+    return filterChat(msg)
   end
 end
 
