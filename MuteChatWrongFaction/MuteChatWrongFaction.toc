@@ -1,0 +1,10 @@
+## Interface: 30300
+## Title: MuteChatWrongFaction
+## Notes: Mute system message "You can only whisper to members of your alliance."
+## Author: fondlez
+## Version: 1.0.0
+## X-Website: http://github.com/fondlez
+## X-Category: Chat/Communication
+## DefaultState: enabled
+
+core.lua
